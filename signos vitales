@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Calculadora Score MAMÁ</title>
 <script src="https://cdn.tailwindcss.com"></script>
+<!-- Aquí agregamos el enlace a nuestro archivo de manifiesto -->
+<link rel="manifest" href="/manifest.json">
 <style>
 body {
 background-color: #f3f4f6;
@@ -24,8 +26,8 @@ background-color: #ef4444; /* red-500 */
 .score-amarillo {
 background-color: #f59e0b; /* amber-500 */
 }
-.score-verde {
-background-color: #22c55e; /* green-500 */
+.score-azul {
+background-color: #60a5fa; /* light blue-400 */
 }
 </style>
 </head>
@@ -38,6 +40,12 @@ background-color: #22c55e; /* green-500 */
 <p class="text-gray-600 mt-1">Ingresa los valores para obtener la puntuación.</p>
 </div>
 
+<!-- Imagen de una mujer embarazada -->
+<div class="text-center mb-6">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-16 h-16 text-blue-500 mx-auto mb-4">
+<path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm.5 14.5a.75.75 0 00-1.5 0v.75H10.5a.75.75 0 000 1.5h1.25a.75.75 0 000 1.5h1.5a.75.75 0 000-1.5h1.25a.75.75 0 000-1.5h-1.5v-.75zM8.25 9a3.75 3.75 0 017.5 0v1.5a.75.75 0 001.5 0V9a5.25 5.25 0 00-10.5 0v1.5a.75.75 0 001.5 0V9z" clip-rule="evenodd" />
+</svg>
+</div>
 <!-- Contenedor para los campos de entrada -->
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
 
@@ -117,6 +125,19 @@ Calcular Puntuación
 </div>
 
 <script>
+// Registramos el Service Worker para la funcionalidad de PWA
+if ('serviceWorker' in navigator) {
+window.addEventListener('load', () => {
+navigator.serviceWorker.register('/service-worker.js')
+.then(registration => {
+console.log('Service Worker registrado con éxito:', registration);
+})
+.catch(error => {
+console.log('Fallo al registrar Service Worker:', error);
+});
+});
+}
+
 // Esta es la parte de la "magia" que hace el cálculo
 function calcularScore() {
 // 1. Obtenemos los valores que el usuario ingresó
@@ -174,7 +195,7 @@ const instruccionesDiv = document.getElementById('instrucciones');
 
 puntuacionTotalP.textContent = `Puntuación Total: ${totalScore}`;
 resultadoDiv.classList.remove('hidden');
-resultadoDiv.classList.remove('score-rojo', 'score-amarillo', 'score-verde');
+resultadoDiv.classList.remove('score-rojo', 'score-amarillo', 'score-azul');
 instruccionesDiv.innerHTML = ''; // Limpiar las instrucciones anteriores
 
 // 4. Asignamos color, interpretación y agregamos instrucciones según el puntaje
@@ -201,7 +222,7 @@ instruccionesDiv.innerHTML = `
 </ul>
 `;
 } else {
-resultadoDiv.classList.add('score-verde');
+resultadoDiv.classList.add('score-azul');
 interpretacionP.textContent = "Posible Clave Azul: Bajo riesgo. Continúe con la evaluación de rutina."
 instruccionesDiv.innerHTML = `
 <ul class="list-disc list-inside text-sm mt-2">
@@ -217,3 +238,6 @@ instruccionesDiv.innerHTML = `
 </html>
 
 
+
+Enviado desde mi iPhone
+Página 1 de 1
